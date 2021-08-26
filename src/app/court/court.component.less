@@ -1,0 +1,43 @@
+
+// Variables
+@line-color:        black; // sea blue
+@paint:  lightblue;
+@arc:  yellow;
+
+.lines{
+    stroke-width: .166667;
+    stroke: @line-color;
+    fill: transparent;
+   
+}
+.top{
+    fill: transparent;
+    stroke-width: 0;
+}
+.court{
+    &:extend(.lines);
+    fill: white;
+    pointer-events: all;
+}
+
+.key{
+    &:extend(.lines);
+    fill: @paint;  
+}
+.three-paint{
+    fill: @arc;
+}
+.three{
+    &:extend(.lines);
+    fill: @arc
+}
+
+.key-arc{
+    &:extend(.lines);
+    fill: @paint;
+}
+.dash-arc{
+    &:extend(.lines);
+    fill: transparent;
+    stroke-dasharray:  1;
+}

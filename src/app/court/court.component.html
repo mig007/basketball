@@ -1,0 +1,48 @@
+<svg viewBox="0 0 84 50" xmlns="http://www.w3.org/2000/svg" >
+    <rect width="84" height="50" x="0" y="0" class="court"/>
+
+
+    <!--Left 3 pt-->
+    <path  d="M5.25,5.25a19.75,19.75,0,0,1,0,39.5" class="three"/>
+    <rect x="0" y="5.25" width="5.25" height="39.5" class="three-paint"  />
+    <line x1="0" y1="5.25" x2="5.25" y2="5.25" class="lines" />
+    <line x1="0" y1="44.75" x2="5.25" y2="44.75" class="lines"/>
+    
+    
+    <!-- Left Paint -->
+    <circle cx="18.8333" cy="25" r="6" class="key-arc"></circle>
+    <rect width="18.8333" height="12" x="0" y="19" class="key"/>
+    <circle cx="18.8333" cy="25" r="6" class="dash-arc"></circle>
+    <!--Basket -->
+    <line x1="4" y1="22" x2="4" y2="28" class="lines" />
+    <circle cx="5.25" cy="25" r="1" class="lines"></circle>
+    
+    
+
+    <!--half court-->
+    <line x1="42" y1="0" x2="42" y2="50" class="lines" />
+    <circle cx="42" cy="25" r="6" class="key-arc"></circle>
+    <circle cx="42" cy="25" r="3" class="key-arc"></circle>
+    
+
+ <!--Right 3 pt-->
+ <path  d="M78.75,44.75a19.75,19.75,0,0,1,0-39.5"  class="three"/>
+ <rect x="78.75" y="5.25" width="5.25" height="39.5" class="three-paint"  />  
+ <line x1="78.75" y1="5.25" x2="84" y2="5.25" class="lines" />
+ 
+ <line x1="78.75" y1="44.75" x2="84" y2="44.75" class="lines"/>
+
+<!-- Right Paint -->
+    <circle cx="65.1777" cy="25" r="6" class="key-arc"></circle>
+    <rect width="18.8333" height="12" x="65.1777" y="19" class="key" />
+    <circle cx="65.1777" cy="25" r="6" class="dash-arc"></circle>
+    <!--Basket -->
+    <line x1="80" y1="22" x2="80" y2="28" class="lines" />
+    <circle cx="78.75" cy="25" r="1" class="lines"></circle>
+
+    <rect width="83.82223" height="49.82223" x=".088885" y=".088885" class="lines" />
+    <rect width="84" height="50" x="0" y="0" class="top" (click)="onClick($event)" />
+  </svg>
+  <div *ngIf="event">
+    {{event.clientX * scale}}, {{event.clientY * scale}}
+  </div>

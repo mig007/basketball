@@ -1,0 +1,22 @@
+<div *ngIf="!set">
+    <h2>{{game.clock.getTimeLabel()}}</h2>
+    
+    <div class="text-center">
+            <button *ngIf="!game.clock.isRuning" class="btn btn-primary" (click)="game.startClock()">Start</button>  
+            <button *ngIf="game.clock.isRuning" class="btn btn-danger mlm" (click)="game.stopClock()">Stop</button>  
+            <button *ngIf="!game.clock.isRuning" class="btn btn-warning mlm" (click)="setClock()">Set</button>  
+        </div>
+</div>
+<div *ngIf="set">
+    <div class="input-group">
+        <span class="input-group-text" id="min">min</span>
+        <input type="text" class="form-control"  [(ngModel)]="min" placeholder="min" aria-label="min" aria-describedby="min">
+        <span class="input-group-text" id="ssecc">sec</span>
+        <input type="text" class="form-control"  [(ngModel)]="sec" placeholder="sec" aria-label="sec" aria-describedby="sec">
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary mlm" (click)="confirmSet()">Set</button>  
+        <button class="btn btn-danger mlm" (click)="cancel()">Cancel</button>  
+    </div>
+</div>

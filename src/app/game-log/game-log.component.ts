@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GameLogService } from '../game-log.service';
+import { IGameLog } from '../igame-log';
 
 @Component({
   selector: 'app-game-log',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameLogComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private logService:GameLogService) { }
+  logs!:IGameLog[];
   ngOnInit(): void {
+    this.logs = this.logService.logs;
   }
 
 }

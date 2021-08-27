@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FieldGoal } from '../field-goal';
+import { Shot } from '../shot';
 import { ShotService } from '../shot.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { ShotService } from '../shot.service';
 })
 export class ShotHistoryComponent implements OnInit {
 
-  shots!: FieldGoal[];
+  shots!: Shot[];
   constructor(private shotService:ShotService) { }
 
   ngOnInit(): void {
     this.shotService.getShots().subscribe(x => this.shots = x);
   }
  
-  remove(shot:FieldGoal){
+  remove(shot:Shot){
     this.shotService.removeShot(shot);
   }
 }

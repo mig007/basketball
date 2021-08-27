@@ -1,9 +1,22 @@
 <div class="row">
     <div class="col-md-9">
         <app-court></app-court>
+        <div class="row">
+            
+            <div class="col-md-6">
+                <strong>Home</strong>
+                <app-team [team]="home"></app-team>
+            </div>
+            
+            <div class="col-md-6">
+                <strong>Away</strong>
+                <app-team [team]="away"></app-team>
+            </div>
+        </div>
     </div>
     <div class="col-md-3">
-        
+        <app-game-clock></app-game-clock>
         <app-shot-history></app-shot-history>
+        <app-game-log></app-game-log>
     </div>
 </div>

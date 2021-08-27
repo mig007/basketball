@@ -1,1 +1,14 @@
-<p>game-log works!</p>
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <td>Time</td>
+            <td>Event</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let log of logs | reverse">
+            <td>{{log.gameTime | date:'mm:ss':'UTC'}}</td>
+            <td>{{log.toString()}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,15 @@
+<h4>{{team.name}}</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let player of team.players">
+            <td>{{player.number}}</td>
+            <td>{{player.getName()}}</td>
+        </tr>
+    </tbody>
+</table>

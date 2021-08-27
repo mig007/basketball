@@ -18,8 +18,10 @@
                 </div>    
             </td>
             <td *ngIf="shot.make === undefined">
-                <div class="btn btn-danger btn-xs" (click)="shot.make = false;">Miss</div>
-                <div class="btn btn-success btn-xs mlm"  (click)="shot.make = true;">Make</div>
+                
+                <button class="btn btn-danger btn-xs" (click)="shot.make = false;">Miss</button>
+                <button class="btn btn-success btn-xs mlm"  (click)="shot.make = true;">Make</button>
+                
             </td>
             <td>
                 <div class="form-check form-switch">

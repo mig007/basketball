@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IFieldGoal } from './field-goal';
+import { IShot } from './shot';
 import { Coord } from './coord';
 import { Observable, of } from 'rxjs';
+import { GameLogService } from './game-log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,28 +10,31 @@ import { Observable, of } from 'rxjs';
 export class ShotService {
 
   
-  constructor() { }
-  private shots:IFieldGoal[] = [];
+  constructor(private log:GameLogService) { }
+  private shots:IShot[] = [];
   leftBasket:Coord = {x: 5.25, y:25};
   rightBasket:Coord = {x: 78.75, y:25};
 
-  getShots():Observable<IFieldGoal[]>{
+  getShots():Observable<IShot[]>{
     return of(this.shots);
   }
-  addShot(shot:IFieldGoal){
+  addShot(shot:IShot){
     shot.distance = this.getShotDistance(shot);
     this.shots.push(shot);
+    this.log.add(shot);
+
   }
-  removeShot(shot:IFieldGoal){
-    if(this.shots)
-    {
-      let idx = this.shots.indexOf(shot);
-      if(idx >= 0)
-        this.shots.splice(idx, 1);
-    }
+  removeShot(shot:IShot){
+    
+    let idx = this.shots.indexOf(shot);
+    if(idx >= 0)
+      this.shots.splice(idx, 1);
+
+    this.log.remove(shot);
+  
   }
 
-  getShotDistance(shot:IFieldGoal):number{
+  getShotDistance(shot:IShot):number{
     let basket = (shot.leftSide ? this.leftBasket : this.rightBasket);
     return this.getDistance(shot.x, shot.y, basket.x, basket.y);
   }

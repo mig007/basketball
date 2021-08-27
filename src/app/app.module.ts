@@ -8,6 +8,9 @@ import { CourtComponent } from './court/court.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShotHistoryComponent } from './shot-history/shot-history.component';
 import { GameLogComponent } from './game-log/game-log.component';
+import { ReversePipe } from './reverse.pipe';
+import { TeamComponent } from './team/team.component';
+import { GameClockComponent } from './game-clock/game-clock.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { GameLogComponent } from './game-log/game-log.component';
     CourtComponent,
     DashboardComponent,
     ShotHistoryComponent,
-    GameLogComponent
+    GameLogComponent,
+    ReversePipe,
+    TeamComponent,
+    GameClockComponent
   ],
   imports: [
     AlertModule.forRoot(),

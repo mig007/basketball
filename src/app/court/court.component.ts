@@ -1,7 +1,8 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, HostListener, Input } from '@angular/core';
 import { Coord } from '../coord';
-import { FieldGoal } from '../field-goal';
+import { Shot } from '../shot';
 import { ShotService } from '../shot.service';
+import { GameService } from '../game.service';
 
 
 @Component({
@@ -11,8 +12,8 @@ import { ShotService } from '../shot.service';
 })
 export class CourtComponent implements OnInit {
   
-  shots!: FieldGoal[];
-  constructor(private shotService:ShotService) { 
+  shots!: Shot[];
+  constructor(private shotService:ShotService, private game:GameService) { 
     this.shotService.getShots().subscribe(x => this.shots = x);
   }
   
@@ -21,7 +22,7 @@ export class CourtComponent implements OnInit {
   scale:number = 1;
   courtHeight:number = 50;
   courtWidth:number = 84;
-  click:Coord = {x:0, y:0}
+  
   leftBasket:Coord = this.shotService.leftBasket;
   rightBasket:Coord = this.shotService.rightBasket;
   leftPoessession:boolean=true;
@@ -55,32 +56,33 @@ export class CourtComponent implements OnInit {
     
     if(event)
     {
-      this.click.x = event.offsetX * this.scale;
-      this.click.y = event.offsetY * this.scale;
-
+      let click:Coord = new  Coord(event.offsetX * this.scale, event.offsetY * this.scale);
       
 
-      let fga = undefined;
+      let shot = undefined;
       if(this.shots.length)
-        fga = this.shots[this.shots.length - 1];
+        shot = this.shots[this.shots.length - 1];
       let isNew:boolean = false;
       
-      if(fga === undefined || fga.make !== undefined)
+      if(shot === undefined || shot.make !== undefined)
       {
-        fga = new FieldGoal();
+        shot = new Shot();
         isNew = true;
       }
       
-      if(fga)
+      if(shot)
       {
-        fga.x = this.click.x;
-        fga.y = this.click.y;
-        fga.leftSide = this.leftPoessession;
-        fga.distance = this.shotService.getShotDistance(fga);
-        fga.three = (fga.distance >= 19.75);
+       
+        shot.x = click.x;
+        shot.y = click.y;
+        shot.leftSide = this.leftPoessession;
+        shot.distance = this.shotService.getShotDistance(shot);
+        shot.three = (shot.distance >= 19.75);
         if(isNew)
         {
-            this.shotService.addShot(fga);
+            shot.gameTime = this.game.clock.time;
+            shot.period = this.game.clock.period;
+            this.shotService.addShot(shot);
         }
       }
      

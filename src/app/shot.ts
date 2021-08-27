@@ -1,6 +1,7 @@
 import { IStat } from './istat';
+import { Player } from './player';
 
-export interface IFieldGoal extends IStat {
+export interface IShot extends IStat {
     x:number,
     y:number,
     leftSide: boolean,
@@ -9,21 +10,22 @@ export interface IFieldGoal extends IStat {
     three: boolean
 }
 
-export class FieldGoal implements IFieldGoal{
+export class Shot implements IShot{
     
     x: number;    
     y: number;
     leftSide: boolean=true;
-    distance?: number;
+    distance?: number = 0;
     make?: boolean | undefined;
     three: boolean=false;
     playerID?: number | undefined;
+    player?:Player | undefined;
     gmaeID?: number | undefined;
     date: Date = new Date();
     gameTime: number = 0;
-    quarter: number = 1;
+    period: number = 1;
     toString(): string {
-       return `${this.three ? '3PT' : '2PT'} ${(this.make ? 'made' : 'missed')}`;
+       return `${Math.round(this.distance || 0)}' ${this.three ? '3PT' : '2PT'} ${(this.make === undefined ? 'attempt' : this.make ? 'made' : 'missed')} by ${this.player ? this.player.getName() : 'Unkown'}`;
     }
 
     constructor(x?:number, y?:number)

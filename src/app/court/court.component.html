@@ -1,5 +1,6 @@
-<svg viewBox="0 0 84 50" xmlns="http://www.w3.org/2000/svg" >
-    <rect width="84" height="50" x="0" y="0" class="court"/>
+<div #divCourt id="divCourt">
+<svg  [attr.viewBox]="'0 0 ' + courtWidth + ' ' + courtHeight" xmlns="http://www.w3.org/2000/svg" >
+    <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="court"/>
 
 
     <!--Left 3 pt-->
@@ -15,7 +16,8 @@
     <circle cx="18.8333" cy="25" r="6" class="dash-arc"></circle>
     <!--Basket -->
     <line x1="4" y1="22" x2="4" y2="28" class="lines" />
-    <circle cx="5.25" cy="25" r="1" class="lines"></circle>
+    <rect class="hoop-base" x="4" y="24.75" width=".5" height=".5" ></rect>
+    <circle [attr.cx]="leftBasket.x" [attr.cy]="leftBasket.y" r=".75" class="lines"></circle>
     
     
 
@@ -38,11 +40,42 @@
     <circle cx="65.1777" cy="25" r="6" class="dash-arc"></circle>
     <!--Basket -->
     <line x1="80" y1="22" x2="80" y2="28" class="lines" />
-    <circle cx="78.75" cy="25" r="1" class="lines"></circle>
+    <rect class="hoop-base" x="79.5" y="24.75" width=".5" height=".5" ></rect>
+    <circle [attr.cx]="rightBasket.x" [attr.cy]="rightBasket.y" r=".75" class="lines"></circle>
 
     <rect width="83.82223" height="49.82223" x=".088885" y=".088885" class="lines" />
-    <rect width="84" height="50" x="0" y="0" class="top" (click)="onClick($event)" />
+
+    <g *ngFor="let shot of shots"> 
+    <!--Shot Attempt-->
+    <circle *ngIf="shot.make == null" [attr.cx]="shot.x" [attr.cy]="shot.y" r=".5" style="fill: black;" ></circle>
+    <!--Missed Shot-->
+    <line *ngIf="shot.make == false" [attr.x1]="shot.x-.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x+.5" [attr.y2]="shot.y+.5" class="miss" />
+    <line *ngIf="shot.make == false" [attr.x1]="shot.x+.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x-.5" [attr.y2]="shot.y+.5" class="miss" />
+    <!--Made Shot-->
+    <path *ngIf="shot.make == true" class="make" [attr.d]="'M' + (shot.x-.5) + ',' + shot.y + ' ' + shot.x + ',' + (shot.y+.5) + ' ' + (shot.x+.5) + ',' + (shot.y-.5)"></path>
+    </g>
+    
+    <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="top" (click)="onClick($event)" />
   </svg>
-  <div *ngIf="event">
-    {{event.clientX * scale}}, {{event.clientY * scale}}
-  </div>
+</div>
+<div class="mam">
+    <div class="float-end">
+        <div class="form-check form-switch">
+            <input class="form-check-input"  [(ngModel)]="leftPoessession" type="checkbox" >
+            <label class="form-check-label">Left Side Ball</label>
+        </div>
+    </div>
+    <!-- <div *ngIf="fga">
+        <div>
+           
+            <div class="btn btn-warning mlm"  (click)="cancelShot()">Cancel</div>
+        </div>
+        <div>Distance: {{fga.distance | number:'1.0-0'}}'</div>
+        <div>Points: {{fga.three ? '3' : '2' }}</div>
+        <div class="form-check form-switch">
+            <input class="form-check-input"  [(ngModel)]="fga.three" type="checkbox">
+            <label class="form-check-label">Three</label>
+        </div>
+    
+    </div> -->
+</div>

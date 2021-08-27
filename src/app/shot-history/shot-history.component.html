@@ -1,0 +1,31 @@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ft</th>
+            <th>Make</th>
+            <th>3pt</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="shots">
+        <tr *ngFor="let shot of shots">
+            <td><button class="btn btn-danger btn-xs" (click)="remove(shot)">X</button></td>
+            <td>{{shot.distance | number : '1.0-0'}}'</td>
+            <td *ngIf="shot.make !== undefined">
+                <div class="form-check form-switch">
+                    <input class="form-check-input"  [(ngModel)]="shot.make" type="checkbox">
+                </div>    
+            </td>
+            <td *ngIf="shot.make === undefined">
+                <div class="btn btn-danger btn-xs" (click)="shot.make = false;">Miss</div>
+                <div class="btn btn-success btn-xs mlm"  (click)="shot.make = true;">Make</div>
+            </td>
+            <td>
+                <div class="form-check form-switch">
+                    <input class="form-check-input"  [(ngModel)]="shot.three" type="checkbox">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

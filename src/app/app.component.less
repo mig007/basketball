@@ -1,0 +1,320 @@
+
+
+//== For Padding and Margin Spacers
+//
+//##
+
+@no-space:				0;
+@tiny-space:			0.125em;
+@small-space:			0.25em;
+@medium-space:			0.5em;
+@large-space:			1em;
+@xlarge-space:			2em;
+
+
+//== Spacing Helpers
+//
+
+.ptn, .pvn, .pan {
+    padding-top: @no-space !important;
+}
+
+.ptt, .pvt, .pat {
+    padding-top: @tiny-space !important;
+}
+
+.pts, .pvs, .pas {
+    padding-top: @small-space !important;
+}
+
+.ptm, .pvm, .pam {
+    padding-top: @medium-space !important;
+}
+
+.ptl, .pvl, .pal {
+    padding-top: @large-space !important;
+}
+
+.ptx, .pvx, .pax {
+    padding-top: @xlarge-space !important;
+}
+
+.prn, .phn, .pan {
+    padding-right: @no-space !important;
+}
+
+.prt, .pht, .pat {
+    padding-right: @tiny-space !important;
+}
+
+.prs, .phs, .pas {
+    padding-right: @small-space !important;
+}
+
+.prm, .phm, .pam {
+    padding-right: @medium-space !important;
+}
+
+.prl, .phl, .pal {
+    padding-right: @large-space !important;
+}
+
+.prx, .phx, .pax {
+    padding-right: @xlarge-space !important;
+}
+
+.pbn, .pvn, .pan {
+    padding-bottom: @no-space !important;
+}
+
+.pbt, .pvt, .pat {
+    padding-bottom: @tiny-space !important;
+}
+
+.pbs, .pvs, .pas {
+    padding-bottom: @small-space !important;
+}
+
+.pbm, .pvm, .pam {
+    padding-bottom: @medium-space !important;
+}
+
+.pbl, .pvl, .pal {
+    padding-bottom: @large-space !important;
+}
+
+.pbx, .pvx, .pax {
+    padding-bottom: @xlarge-space !important;
+}
+
+.pln, .phn, .pan {
+    padding-left: @no-space !important;
+}
+
+.plt, .pht, .pat {
+    padding-left: @tiny-space !important;
+}
+
+.pls, .phs, .pas {
+    padding-left: @small-space !important;
+}
+
+.plm, .phm, .pam {
+    padding-left: @medium-space !important;
+}
+
+.pll, .phl, .pal {
+    padding-left: @large-space !important;
+}
+
+.plx, .phx, .pax {
+    padding-left: @xlarge-space !important;
+}
+
+.mtn, .mvn, .man {
+    margin-top: @no-space !important;
+}
+
+.mtt, .mvt, .mat {
+    margin-top: @tiny-space !important;
+}
+
+.mts, .mvs, .mas {
+    margin-top: @small-space !important;
+}
+
+.mtm, .mvm, .mam {
+    margin-top: @medium-space !important;
+}
+
+.mtl, .mvl, .mal {
+    margin-top: @large-space !important;
+}
+
+.mtx, .mvx, .max {
+    margin-top: @xlarge-space !important;
+}
+
+.mrn, .mhn, .man {
+    margin-right: @no-space !important;
+}
+
+.mrt, .mht, .mat {
+    margin-right: @tiny-space !important;
+}
+
+.mrs, .mhs, .mas {
+    margin-right: @small-space !important;
+}
+
+.mrm, .mhm, .mam {
+    margin-right: @medium-space !important;
+}
+
+.mrl, .mhl, .mal {
+    margin-right: @large-space !important;
+}
+
+.mrx, .mhx, .max {
+    margin-right: @xlarge-space !important;
+}
+
+.mbn, .mvn, .man {
+    margin-bottom: @no-space !important;
+}
+
+.mbt, .mvt, .mat {
+    margin-bottom: @tiny-space !important;
+}
+
+.mbs, .mvs, .mas {
+    margin-bottom: @small-space !important;
+}
+
+.mbm, .mvm, .mam {
+    margin-bottom: @medium-space !important;
+}
+
+.mbl, .mvl, .mal {
+    margin-bottom: @large-space !important;
+}
+
+.mbx, .mvx, .max {
+    margin-bottom: @xlarge-space !important;
+}
+
+.mln, .mhn, .man {
+    margin-left: @no-space !important;
+}
+
+.mlt, .mht, .mat {
+    margin-left: @tiny-space !important;
+}
+
+.mls, .mhs, .mas {
+    margin-left: @small-space !important;
+}
+
+.mlm, .mhm, .mam {
+    margin-left: @medium-space !important;
+}
+
+.mll, .mhl, .mal {
+    margin-left: @large-space !important;
+}
+
+.mlx, .mhx, .max {
+    margin-left: @xlarge-space !important;
+}
+
+.spt, .sps, .spm, .spl, .spx {
+    display: block !important;
+    clear: both !important;
+    margin: 0 !important;
+}
+
+.spt {
+    height: @tiny-space !important;
+}
+
+.sps {
+    height: @small-space !important;
+}
+
+.spm {
+    height: @medium-space !important;
+}
+
+.spl {
+    height: @large-space !important;
+}
+
+.spx {
+    height: @xlarge-space !important;
+}
+
+
+
+//== Truncation
+//
+
+.truncate {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.max {
+    &-50 {
+        max-width: 50px;
+    }
+
+    &-55 {
+        max-width: 55px;
+    }
+
+    &-75 {
+        max-width: 75px;
+    }
+
+    &-100 {
+        max-width: 100px;
+    }
+
+    &-150 {
+        max-width: 150px;
+    }
+
+    &-200 {
+        max-width: 200px;
+    }
+
+    &-250 {
+        max-width: 250px;
+    }
+
+    &-300 {
+        max-width: 300px;
+    }
+
+    &-350 {
+        max-width: 350px;
+    }
+
+    &-400 {
+        max-width: 400px;
+    }
+
+    &-450 {
+        max-width: 450px;
+    }
+
+    &-500 {
+        max-width: 500px;
+    }
+
+    &-600 {
+        max-width: 600px;
+    }
+
+    &-700 {
+        max-width: 700px;
+    }
+
+    &-800 {
+        max-width: 800px;
+    }
+
+    &-900 {
+        max-width: 900px;
+    }
+
+    &-1000 {
+        max-width: 1000px;
+    }
+
+    &-1024 {
+        max-width: 1024px;
+    }
+}

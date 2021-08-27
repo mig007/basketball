@@ -8,28 +8,49 @@
     stroke-width: .166667;
     stroke: @line-color;
     fill: transparent;
+    
    
+}
+#divCourt{
+    background-image: url('~/src/assets/floor.jpeg');
 }
 .top{
     fill: transparent;
     stroke-width: 0;
 }
+.hoop-base{
+    &:extend(.lines);
+    fill: black;
+}
 .court{
     &:extend(.lines);
-    fill: white;
+    fill: transparent;
+    
     pointer-events: all;
 }
 
 .key{
     &:extend(.lines);
     fill: @paint;  
+    
 }
 .three-paint{
     fill: @arc;
+    
 }
 .three{
     &:extend(.lines);
-    fill: @arc
+    fill: @arc;
+    
+}
+.miss{
+    stroke-width: .3;
+    stroke: red;
+}
+.make{
+    stroke-width: .3;
+    stroke: green;
+    fill: transparent;
 }
 
 .key-arc{

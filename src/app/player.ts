@@ -21,6 +21,12 @@ export class Player implements IPlayer {
 
         return `#${this.number}`;
     }
+    fullName():string{
+        if(this.first && this.last)
+            return `${this.first} ${this.last}`;
+        return this.getName();
+
+    }
     constructor(number: number, last?:string, first?:string){
         this.number = number;
         this.first = first;

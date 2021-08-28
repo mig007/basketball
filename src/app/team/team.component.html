@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let player of team.players">
+        <tr *ngFor="let player of team.players | sort:'number'" (click)="select(player)" class="clickable">
             <td>{{player.number}}</td>
             <td>{{player.getName()}}</td>
         </tr>

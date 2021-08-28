@@ -3,6 +3,8 @@ import { Coord } from '../coord';
 import { Shot } from '../shot';
 import { ShotService } from '../shot.service';
 import { GameService } from '../game.service';
+import { SHOT_TYPE } from '../shot-type';
+import { ToastService, TOAST_TYPE } from '../toast-service.service';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { GameService } from '../game.service';
 export class CourtComponent implements OnInit {
   
   shots!: Shot[];
-  constructor(private shotService:ShotService, private game:GameService) { 
+  constructor(private shotService:ShotService, private game:GameService, private toast:ToastService) { 
     this.shotService.getShots().subscribe(x => this.shots = x);
   }
   
@@ -52,8 +54,11 @@ export class CourtComponent implements OnInit {
   }
   
   onClick(event?: MouseEvent): void{
-    
-    
+    if(!this.game.game.ball)
+    {
+      this.toast.pop(TOAST_TYPE.WARNING, "No Player Selected", "Please select an active player before taking a shot");
+      return;
+    }
     if(event)
     {
       let click:Coord = new  Coord(event.offsetX * this.scale, event.offsetY * this.scale);
@@ -66,22 +71,24 @@ export class CourtComponent implements OnInit {
       
       if(shot === undefined || shot.make !== undefined)
       {
-        shot = new Shot();
+        shot = new Shot(click.x, click.y, SHOT_TYPE.FG,  this.game.clock.time, this.game.clock.period, this.game.clock.periodType);
         isNew = true;
       }
       
       if(shot)
       {
-       
+        
+        shot.player = this.game.game.ball;
         shot.x = click.x;
         shot.y = click.y;
-        shot.leftSide = this.leftPoessession;
+        shot.leftSide = (this.game.leftSide == this.game.getPlayerTeam(shot.player)) ;
         shot.distance = this.shotService.getShotDistance(shot);
-        shot.three = (shot.distance >= 19.75);
+        if(shot.distance >= 19.75)
+          shot.type = SHOT_TYPE.THREE;
+        else
+          shot.type = SHOT_TYPE.FG;
         if(isNew)
         {
-            shot.gameTime = this.game.clock.time;
-            shot.period = this.game.clock.period;
             this.shotService.addShot(shot);
         }
       }

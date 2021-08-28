@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Game } from './game';
 import { Team } from './team';
 import { GameClock } from './game-clock';
+import { PeriodType } from './period-type';
+import { Player } from './player';
+import { ToastService, TOAST_TYPE } from './toast-service.service';
+import { GameLogService } from './game-log.service';
+import { Substitution } from './substitution';
 
 @Injectable({
   providedIn: 'root'
@@ -11,41 +16,231 @@ export class GameService {
   isReady:boolean = false;
   game!:Game;
   clock!:GameClock;
-  constructor() {}
-   init(home:Team,away:Team, lengthInMin:number){
+  selected?:Player;
+  tempSub:Player|null = null;
+  leftSide!:Team;
+
+  constructor(private toast:ToastService, private log:GameLogService) {}
+   init(home:Team,away:Team, lengthInMin:number, type:PeriodType){
      if(!this.isReady)
      {
       this.game = new Game(home,away);
-      this.clock = new GameClock(1, lengthInMin);
+      this.clock = new GameClock(1, type, lengthInMin);
       this.isReady = true;
+      this.leftSide = home;
+      for(let i=0; i < 5 && i < home.players.length; i++)
+      {
+        this.subPlayer(home.players[i]);
+      }
+      for(let i=0; i < 5 && i < away.players.length; i++)
+      {
+        this.subPlayer(away.players[i]);
+      }
      }
    }
-   private timer:any = null;
-   startClock(){
-    if(!this.timer)
+
+  //events
+  pass(from:Player, to:Player){
+    this.log.addNote(this.clock, `${from.getName()} passes to ${to.getName()}`);
+  }
+  steal(turnover:Player, steal:Player){
+    this.log.addNote(this.clock, `${steal.getName()} steals ball from ${turnover.getName()}`);
+  }
+  
+  onMake(){
+    
+  }
+  onMiss(){
+    
+  }
+  selectPlayer(player:Player){
+    
+    if(this.tempSub)
     {
-      this.clock.isRuning = true;
-      this.timer = setInterval(() => {
-        this.clock.time -= 100;
-        //if the clock expires stop it and set to 0;
-        if(this.clock.time <= 0)
+      let result = this.subPlayer(this.tempSub, player);
+      if(!result)
+        return;
+      this.tempSub = null;
+    }
+     //store our last player and his status
+     let prevSelected = this.selected;
+    //select the new player
+    this.selected = player;
+
+    let active = this.getTeamLineup(player);
+    //if we don't have 5 players for this team and the player is innactive then activate the player
+    if(!this.tempSub && active && active.length < 5 && !this.isActivePlayer(player))
+      this.subPlayer(player);
+    
+
+
+    if(this.clock.isRuning && this.isActivePlayer(player))
+    {
+      if(this.game.ball && this.getPlayerTeam(this.game.ball) == this.getPlayerTeam(player))
+        this.pass(this.game.ball, player);
+      else if(this.game.ball && this.getPlayerTeam(this.game.ball) != this.getPlayerTeam(player))
+        this.steal(this.game.ball, player);
+
+      this.game.ball = player;
+
+    }
+ }
+
+
+
+   isActivePlayer(player?:Player):boolean{
+     if(!player)
+        return false;
+      let retval = false;
+
+      this.game.homeActive.forEach(x => {
+        if(x == player)
         {
-          this.clock.time = 0;
-          this.stopClock();
+          retval =true;
         }
-      }, 100)
-      
-    }
-   }
-   stopClock(){
-    if(this.timer)
-    {
-      clearInterval(this.timer);
-      this.timer = null;
-      this.clock.isRuning = false;
-    }
+      });
+
+      this.game.awayActive.forEach(x => {
+        if(x == player)
+        {
+          retval =true;
+        }
+      });
+      return retval;  
    }
    
+   
+
+   switchSides(){
+      this.leftSide = (this.leftSide == this.game.home ? this.game.away : this.game.home);
+   }
+
+   getTeamLineup(player:Player):Player[]|null{
+    let retval = null;
+    this.game.home.players.forEach(x => {
+      if(x == player)
+      {
+        retval = this.game.homeActive; 
+      }
+    });
+    this.game.away.players.forEach(x => {
+      if(x == player)
+      {
+        retval = this.game.awayActive; 
+      }
+    });
+
+    return retval;
+   }
+
+   getPlayerTeam(player:Player):Team|null{
+    let retval = null;
+    this.game.home.players.forEach(x => {
+      if(x == player)
+      {
+        retval = this.game.home; 
+      }
+    });
+    this.game.away.players.forEach(x => {
+      if(x == player)
+      {
+        retval = this.game.away; 
+      }
+    });
+
+    return retval;
+   }
+
+   subPlayer(player1:Player, player2?:Player):boolean
+   {
+     let retval:boolean = true;
+      
+      let team1 = this.getPlayerTeam(player1);
+      let active1 = this.isActivePlayer(player1);
+      if(active1 && !player2)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', `${player1.getName()} is already active`);
+        return false;
+      }
+      if(player1 == player2)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', `Select another player to sub for ${player1.getName()}`);
+        return false;
+      }
+      if(player2)
+      {
+        let team2= this.getPlayerTeam(player2);
+        let active2 = this.isActivePlayer(player2);
+       //make sure they are on the same team
+        if(team1 != team2)
+        {
+          this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Please selecte players from the same team");
+          return false;
+        }
+        if(active1 == active2)
+        {
+          if(active1)
+            this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Both players are active");
+          if(!active1)
+            this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Both players are on the bench");
+          return false;
+        }
+        
+        //bench the players first to open up the roster spoot
+        if(active2 && retval)
+          retval = this.benchPlayer(player2);
+        if(active1 && retval)
+          retval = this.benchPlayer(player1);
+        if(!active2 && retval)
+          retval =   this.activatePlayer(player2);
+      }
+      if(!active1 && retval)
+        retval =  this.activatePlayer(player1);
+
+      if(retval)
+        this.log.add(new Substitution(this.clock.time, this.clock.period, this.clock.periodType, (active1 && player2 ? player2: player1), (active1 ? player1: player2)));
+      
+
+     return retval;
+       
+   }
+
+   private benchPlayer(player:Player):boolean{
+     let active = this.getTeamLineup(player);
+      if(!active)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to bench', "Player cannot be found on team roster");
+        return false;
+      }
+      let idx = active.indexOf(player);
+      if(idx === -1)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to bench', "Player is not active");
+        return false;
+      }
+      active.splice(idx, 1);
+      return true;
+   }
+   private activatePlayer(player:Player):boolean{
+      let active = this.getTeamLineup(player);
+      if(!active)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "Player cannot be found on team roster");
+        return false;
+      }
+      if(active.indexOf(player) !== -1)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "Player is already active");
+        return false;
+      }
+      if(active.length >= 5)
+      {
+        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "5 Players are already active");
+        return false;
+      }
+      active.push(player);
+      return true;
+  }
    
   
 

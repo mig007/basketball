@@ -1,0 +1,10 @@
+<div class="text-center player-container">
+    <div>{{player.fullName()}}</div>
+    <div>{{player.number}}</div>
+    <div>
+        <button class="btn btn-primary" (click)="sub()" *ngIf="!gameService.tempSub">Sub</button>
+        <button class="btn btn-warning" (click)="cancelSub()" *ngIf="gameService.tempSub">Cancel</button>
+    </div>
+    
+
+</div>

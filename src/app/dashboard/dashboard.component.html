@@ -2,21 +2,41 @@
     <div class="col-md-9">
         <app-court></app-court>
         <div class="row">
-            
-            <div class="col-md-6">
-                <strong>Home</strong>
-                <app-team [team]="home"></app-team>
+            <div class="col-md-6 text-center">
+                <div class="mam">
+                    <strong>{{(gameService.leftSide != gameService.game.home ? 'Away'  : 'Home')}}</strong>
+                    <app-active-players [players]="(gameService.leftSide != gameService.game.home ? gameService.game.awayActive : gameService.game.homeActive)"></app-active-players>
+                </div>
             </div>
             
-            <div class="col-md-6">
-                <strong>Away</strong>
-                <app-team [team]="away"></app-team>
+            <div class="col-md-6 text-center">
+                <div class="mam">
+                        <strong>{{(gameService.leftSide == gameService.game.home ? 'Away'  : 'Home')}}</strong>
+                    <app-active-players [players]="(gameService.leftSide == gameService.game.home ? gameService.game.awayActive : gameService.game.homeActive)"></app-active-players>
+                </div>
             </div>
         </div>
+        <div *ngIf="gameService.game.ball" class="mam">
+                {{gameService.game.ball.getName()}} has the ball
+        </div>
+            
+        <div class="row">
+            
+            <div class="col-md-6">
+                <app-team [team]="gameService.leftSide" (onSelect)="playerSelected($event)"></app-team>
+            </div>
+            
+            <div class="col-md-6">
+                <app-team [team]="(gameService.leftSide == gameService.game.home ? gameService.game.away  : gameService.game.home )" (onSelect)="playerSelected($event)"></app-team>
+            </div>
+        </div>
+        <button class="btn btn-primary" (click)="gameService.switchSides()">Swap Sides</button>
     </div>
     <div class="col-md-3">
-        <app-game-clock></app-game-clock>
-        <app-shot-history></app-shot-history>
-        <app-game-log></app-game-log>
+        <div><app-game-clock [clock]="gameService.clock"></app-game-clock></div>
+        <div class="mtm "><app-player-action [player]="gameService.selected" *ngIf="gameService.selected"></app-player-action></div>
+        <div  class="mtm game-log"><app-game-log></app-game-log></div>
+        <div class="mtm shot-chart"><app-shot-history></app-shot-history></div>
+        
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IGameLog } from './igame-log';
+import { IGameLog, GameLog } from './igame-log';
 import { Observable, of } from 'rxjs';
+import { GameClock } from './game-clock';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class GameLogService {
     return of(this.logs);
   }
   add(log:IGameLog){
+    this.logs.push(log);
+  }
+  addNote(clock:GameClock, note:string){
+    let log = new GameLog(clock, note);
     this.logs.push(log);
   }
   remove(log:IGameLog){

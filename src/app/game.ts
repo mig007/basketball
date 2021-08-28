@@ -7,10 +7,14 @@ export interface IGame {
     away:Team;
     homePosession:boolean;
     log:IGameLog[];
-    ball:Player|null;
+    ball?:Player;
+    homeActive:Player[];
+    awayActive:Player[];
 }
 export class Game implements IGame {
-    ball: Player | null = null;
+    homeActive:Player[] = [];
+    awayActive:Player[]  = [];
+    ball?: Player;
     home: Team;    
     away: Team;
     homePosession: boolean = true;
@@ -20,6 +24,8 @@ export class Game implements IGame {
     constructor(home:Team, away:Team){
         this.home = home;
         this.away = away;
+        
+
     }
     
 

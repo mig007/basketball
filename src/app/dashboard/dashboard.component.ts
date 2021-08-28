@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../team';
 import { Player } from '../player';
 import { GameService } from '../game.service';
+import { PeriodType, PERIOD } from '../period-type';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { GameService } from '../game.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private game:GameService) { }
+  constructor(public gameService:GameService) { }
   home:Team = new Team("Maple Mountain");
   away:Team = new Team("Spanish Fork");
   ngOnInit(): void {
@@ -32,9 +33,12 @@ export class DashboardComponent implements OnInit {
     this.away.players.push(new Player(23));
     this.away.players.push(new Player(27));
 
-    this.game.init(this.home, this.away, 20);
+    this.gameService.init(this.home, this.away, 20, PERIOD.HALF);
    
 
+  }
+  playerSelected(player:Player){
+    this.gameService.selectPlayer(player);
   }
 
 }

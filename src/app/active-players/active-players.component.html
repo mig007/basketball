@@ -1,0 +1,13 @@
+
+<table class="player-grid">
+    <tbody>
+        <tr>
+        <td *ngFor="let player of players | sort:'number'" 
+        [ngClass]="{'selected': gameService.game.ball == player}"
+        class="clickable player-cell" (click)="gameService.selectPlayer(player)" title="{{player.getName()}}">
+                {{player.number}}
+            </td>
+           
+        </tr>
+    </tbody>
+</table>    

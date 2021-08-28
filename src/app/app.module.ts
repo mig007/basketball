@@ -11,6 +11,12 @@ import { GameLogComponent } from './game-log/game-log.component';
 import { ReversePipe } from './reverse.pipe';
 import { TeamComponent } from './team/team.component';
 import { GameClockComponent } from './game-clock/game-clock.component';
+import { OrdinalPipe } from './ordinal.pipe';
+import { ActivePlayersComponent } from './active-players/active-players.component';
+import { ToasterContainerComponent } from './toaster-container/toaster-container.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SortPipe } from './sort.pipe';
+import { PlayerActionComponent } from './player-action/player-action.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +27,19 @@ import { GameClockComponent } from './game-clock/game-clock.component';
     GameLogComponent,
     ReversePipe,
     TeamComponent,
-    GameClockComponent
+    GameClockComponent,
+    OrdinalPipe,
+    ActivePlayersComponent,
+    ToasterContainerComponent,
+    SortPipe,
+    PlayerActionComponent
   ],
   imports: [
     AlertModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

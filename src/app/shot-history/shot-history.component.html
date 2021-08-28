@@ -5,11 +5,11 @@
             <th></th>
             <th>Ft</th>
             <th>Make</th>
-            <th>3pt</th>
+            <th>Type</th>
         </tr>
     </thead>
     <tbody *ngIf="shots">
-        <tr *ngFor="let shot of shots">
+        <tr *ngFor="let shot of shots | reverse">
             <td><button class="btn btn-danger btn-xs" (click)="remove(shot)">X</button></td>
             <td>{{shot.distance | number : '1.0-0'}}'</td>
             <td *ngIf="shot.make !== undefined">
@@ -24,9 +24,9 @@
                 
             </td>
             <td>
-                <div class="form-check form-switch">
-                    <input class="form-check-input"  [(ngModel)]="shot.three" type="checkbox">
-                </div>
+                <select class="form-control"  [(ngModel)]="shot.type">
+                    <option *ngFor="let type of shotTypes" [ngValue]="type">{{type.short}}</option>
+                </select>
             </td>
         </tr>
     </tbody>

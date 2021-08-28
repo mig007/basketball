@@ -9,6 +9,7 @@
         <tr *ngFor="let log of logs | reverse">
             <td>{{game.clock.periodType.short}}{{log.period}} - {{log.gameTime | date:'mm:ss':'UTC'}}</td>
             <td>{{log.toString()}}</td>
+            
         </tr>
     </tbody>
 </table>

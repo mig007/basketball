@@ -22,6 +22,13 @@ export class GameClockComponent implements OnInit {
       this.periods.push(value);
     }
   }
+  start(){
+    this.clock.startClock();
+  }
+  stop(){
+    this.game.game.ball = undefined;
+    this.clock.stopClock();
+  }
   setClock(){
     this.clock.stopClock();
    

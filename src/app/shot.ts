@@ -22,7 +22,7 @@ export class Shot implements IShot{
     make?: boolean | undefined;
     type: ShotType;
     playerID?: number | undefined;
-    player?:Player | undefined;
+    player:Player;
     gmaeID?: number | undefined;
     date: Date = new Date();
     gameTime: number;
@@ -33,7 +33,7 @@ export class Shot implements IShot{
        return (this.type == SHOT_TYPE.FT ? "" : Math.round(this.distance || 0) + '\' ' ) +  `${this.type.short} ${(this.make === undefined ? 'attempt' : this.make ? 'made' : 'missed')} by ${this.player ? this.player.getName() : 'Unkown'}`;
     }
 
-    constructor(x:number, y:number, type:ShotType, gameTime: number, period:number, periodType:PeriodType)
+    constructor(player:Player, x:number, y:number, type:ShotType, gameTime: number, period:number, periodType:PeriodType)
     {
         this.x = x || 0;
         this.y = y || 0;
@@ -41,6 +41,7 @@ export class Shot implements IShot{
         this.period = period;
         this.periodType =  periodType;
         this.type = type;
+        this.player = player;
         
         
     }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PlatformRef } from '@angular/core';
 import { Game } from './game';
 import { Team } from './team';
 import { GameClock } from './game-clock';
@@ -7,6 +7,7 @@ import { Player } from './player';
 import { ToastService, TOAST_TYPE } from './toast-service.service';
 import { GameLogService } from './game-log.service';
 import { Substitution } from './substitution';
+import { Shot } from './shot';
 
 @Injectable({
   providedIn: 'root'
@@ -43,16 +44,25 @@ export class GameService {
   pass(from:Player, to:Player){
     this.log.addNote(this.clock, `${from.getName()} passes to ${to.getName()}`);
   }
+  inbound(from:Player, to:Player){
+    if(this.onSameTeam(from, to))
+      this.log.addNote(this.clock, `${from.getName()} inbounds to ${to.getName()}`);
+    else
+      this.log.addNote(this.clock, `inbound pass stolen by ${to.getName()}`);
+  }
   steal(turnover:Player, steal:Player){
     this.log.addNote(this.clock, `${steal.getName()} steals ball from ${turnover.getName()}`);
   }
+  rebound(shot:Player, rebound:Player){
+    if(this.getPlayerTeam(shot) == this.getPlayerTeam(rebound))
+    {
+      this.log.addNote(this.clock, `offsenive rebound by ${rebound.getName()}`);
+    }
+    else{
+      this.log.addNote(this.clock, `defensive rebound by ${rebound.getName()}`);
+    }
+  }
   
-  onMake(){
-    
-  }
-  onMiss(){
-    
-  }
   selectPlayer(player:Player){
     
     if(this.tempSub)
@@ -76,16 +86,62 @@ export class GameService {
 
     if(this.clock.isRuning && this.isActivePlayer(player))
     {
-      if(this.game.ball && this.getPlayerTeam(this.game.ball) == this.getPlayerTeam(player))
-        this.pass(this.game.ball, player);
-      else if(this.game.ball && this.getPlayerTeam(this.game.ball) != this.getPlayerTeam(player))
-        this.steal(this.game.ball, player);
+      let lastEvent = this.log.getLast();
+      //if the last event was a shot
+      if(lastEvent instanceof Shot)
+      {
+          let shot = lastEvent as Shot; 
+          if(shot.make === undefined)
+          {
+            this.toast.pop(TOAST_TYPE.WARNING, "Invalid Selection", "Select if the shot was made before selecting another player");
+            return;
+          }
+          if(shot.make)
+          {
+            if(!this.game.ball && this.onSameTeam(player, shot.player))
+            {
+              this.toast.pop(TOAST_TYPE.WARNING, "Invalid Selection", "The ball must be inbounded by the other team");
+              return;
+            }
 
-      this.game.ball = player;
+            //after a bassket is made it must be taken by the other team
+            if(!this.game.ball && !this.onSameTeam(player, shot.player))
+              this.game.ball = player;
+           
+            
+
+            //after a made shot and a member from the other team is selected it will be inbound
+            if(this.game.ball && player != this.game.ball)
+            {
+                this.inbound(this.game.ball, player);
+                this.game.ball = player;
+            }
+            
+            
+
+          }
+          else
+          {
+            this.rebound(shot.player, player);
+            this.game.ball = player;
+          }
+      }
+      else
+      {
+
+        if(this.game.ball && this.onSameTeam(this.game.ball, player))
+          this.pass(this.game.ball, player);
+        else if(this.game.ball  && !this.onSameTeam(this.game.ball, player))
+          this.steal(this.game.ball, player);
+
+        this.game.ball = player;
+      }
 
     }
  }
-
+ onSameTeam(player1:Player, player2:Player){
+  return this.getPlayerTeam(player1) === this.getPlayerTeam(player2);
+ }
 
 
    isActivePlayer(player?:Player):boolean{

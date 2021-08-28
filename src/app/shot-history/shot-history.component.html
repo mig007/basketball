@@ -19,8 +19,8 @@
             </td>
             <td *ngIf="shot.make === undefined">
                 
-                <button class="btn btn-danger btn-xs" (click)="shot.make = false;">Miss</button>
-                <button class="btn btn-success btn-xs mlm"  (click)="shot.make = true;">Make</button>
+                <button class="btn btn-danger btn-xs" (click)="finalizeShot(shot, false)">Miss</button>
+                <button class="btn btn-success btn-xs mlm"  (click)="finalizeShot(shot,true)">Make</button>
                 
             </td>
             <td>

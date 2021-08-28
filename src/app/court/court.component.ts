@@ -54,6 +54,11 @@ export class CourtComponent implements OnInit {
   }
   
   onClick(event?: MouseEvent): void{
+    if(!this.game.clock.isRuning)
+    {
+      this.toast.pop(TOAST_TYPE.WARNING, "Clock Not Running", "The clock must be running to take a shot");
+      return;
+    }
     if(!this.game.game.ball)
     {
       this.toast.pop(TOAST_TYPE.WARNING, "No Player Selected", "Please select an active player before taking a shot");
@@ -71,14 +76,14 @@ export class CourtComponent implements OnInit {
       
       if(shot === undefined || shot.make !== undefined)
       {
-        shot = new Shot(click.x, click.y, SHOT_TYPE.FG,  this.game.clock.time, this.game.clock.period, this.game.clock.periodType);
+        shot = new Shot(this.game.game.ball, click.x, click.y, SHOT_TYPE.FG,  this.game.clock.time, this.game.clock.period, this.game.clock.periodType);
         isNew = true;
       }
       
       if(shot)
       {
         
-        shot.player = this.game.game.ball;
+        
         shot.x = click.x;
         shot.y = click.y;
         shot.leftSide = (this.game.leftSide == this.game.getPlayerTeam(shot.player)) ;

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GameLogService } from '../game-log.service';
-import { IGameLog } from '../igame-log';
+import { IGameLog, GameLog } from '../igame-log';
 import { GameService } from '../game.service';
+import { Shot } from '../shot';
+
 
 @Component({
   selector: 'app-game-log',
@@ -15,5 +17,5 @@ export class GameLogComponent implements OnInit {
   ngOnInit(): void {
     this.logs = this.logService.logs;
   }
-
+  
 }

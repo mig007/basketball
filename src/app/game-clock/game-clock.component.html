@@ -2,8 +2,8 @@
 <h2>{{game.clock.period | ordinal}} {{game.clock.periodType.name}}  - {{game.clock.getTimeLabel()}}</h2>
     
     <div class="text-center">
-            <button *ngIf="!game.clock.isRuning" class="btn btn-primary" (click)="clock.startClock()">Start</button>  
-            <button *ngIf="game.clock.isRuning" class="btn btn-danger mlm" (click)="clock.stopClock()">Stop</button>  
+            <button *ngIf="!game.clock.isRuning" class="btn btn-primary" (click)="start()">Start</button>  
+            <button *ngIf="game.clock.isRuning" class="btn btn-danger mlm" (click)="stop()">Stop</button>  
             <button *ngIf="!game.clock.isRuning" class="btn btn-warning mlm" (click)="setClock()">Set</button>  
         </div>
 </div>

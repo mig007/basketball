@@ -3,6 +3,7 @@ import { IGameLog, GameLog } from './igame-log';
 import { Observable, of } from 'rxjs';
 import { GameClock } from './game-clock';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,12 +20,17 @@ export class GameLogService {
   }
   addNote(clock:GameClock, note:string){
     let log = new GameLog(clock, note);
-    this.logs.push(log);
+    this.add(log);
   }
   remove(log:IGameLog){
     let idx = this.logs.indexOf(log);
     if(idx !== -1)
       this.logs.splice(idx, 1);
+  }
+  getLast():IGameLog|null{
+    if(!this.logs.length)
+      return null;
+    return this.logs[this.logs.length-1];
   }
 
 }

@@ -1,0 +1,10 @@
+<div class="text-center finalize-shot" *ngIf="shot"
+[style.left.px]="left" [style.top.px]="top">
+
+    <div class="title">{{shot.toString()}}</div>
+    <div class="mtm">
+        <button class="btn btn-primary" (click)="finalizeShot(true)">Make</button>
+        <button class="btn btn-danger mlm" (click)="finalizeShot(false)">Miss</button>
+        <button class="btn btn-warning mlm" (click)="remove()">Cancel</button>
+    </div>
+</div>

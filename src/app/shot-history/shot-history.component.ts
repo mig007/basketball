@@ -23,13 +23,5 @@ export class ShotHistoryComponent implements OnInit {
 
   }
  
-  remove(shot:Shot){
-    this.shotService.removeShot(shot);
-  }
-  finalizeShot(shot:Shot, make:boolean)
-  {
-    shot.make = make;
-    if(make)
-      this.gameService.game.ball = undefined;
-  }
+  
 }

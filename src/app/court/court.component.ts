@@ -4,7 +4,7 @@ import { Shot } from '../shot';
 import { ShotService } from '../shot.service';
 import { GameService } from '../game.service';
 import { SHOT_TYPE } from '../shot-type';
-import { ToastService, TOAST_TYPE } from '../toast-service.service';
+import { ToastService } from '../toast-service.service';
 
 
 @Component({
@@ -15,6 +15,8 @@ import { ToastService, TOAST_TYPE } from '../toast-service.service';
 export class CourtComponent implements OnInit {
   
   shots!: Shot[];
+  shot?: Shot;
+  confirm:Coord = new Coord(0,0);
   constructor(private shotService:ShotService, private game:GameService, private toast:ToastService) { 
     this.shotService.getShots().subscribe(x => this.shots = x);
   }
@@ -56,18 +58,23 @@ export class CourtComponent implements OnInit {
   onClick(event?: MouseEvent): void{
     if(!this.game.clock.isRuning)
     {
-      this.toast.pop(TOAST_TYPE.WARNING, "Clock Not Running", "The clock must be running to take a shot");
+      this.toast.pop("warning", "Clock Not Running", "The clock must be running to take a shot");
       return;
     }
     if(!this.game.game.ball)
     {
-      this.toast.pop(TOAST_TYPE.WARNING, "No Player Selected", "Please select an active player before taking a shot");
+      this.toast.pop("warning", "No Player Selected", "Please select an active player before taking a shot");
       return;
     }
     if(event)
     {
       let click:Coord = new  Coord(event.offsetX * this.scale, event.offsetY * this.scale);
       
+      if(click.x > this.courtWidth / 2)
+        this.confirm.x = event.x - 430;
+      else
+        this.confirm.x = event.x + 30;
+      this.confirm.y = event.y - 60;
 
       let shot = undefined;
       if(this.shots.length)
@@ -97,6 +104,7 @@ export class CourtComponent implements OnInit {
             this.shotService.addShot(shot);
         }
       }
+      this.shot = shot;
      
     
     }

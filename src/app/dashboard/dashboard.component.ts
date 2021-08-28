@@ -3,6 +3,7 @@ import { Team } from '../team';
 import { Player } from '../player';
 import { GameService } from '../game.service';
 import { PeriodType, PERIOD } from '../period-type';
+import { GameLogService } from '../game-log.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { PeriodType, PERIOD } from '../period-type';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public gameService:GameService) { }
+  constructor(public gameService:GameService, private log:GameLogService) { }
   home:Team = new Team("Maple Mountain");
   away:Team = new Team("Spanish Fork");
   ngOnInit(): void {
@@ -39,6 +40,13 @@ export class DashboardComponent implements OnInit {
   }
   playerSelected(player:Player){
     this.gameService.selectPlayer(player);
+  }
+  getLastLog():string
+  {
+    let log =this.log.getLast();
+    if(log)
+      return log.toString();
+    return "";
   }
 
 }

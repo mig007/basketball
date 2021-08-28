@@ -4,7 +4,7 @@ import { Team } from './team';
 import { GameClock } from './game-clock';
 import { PeriodType } from './period-type';
 import { Player } from './player';
-import { ToastService, TOAST_TYPE } from './toast-service.service';
+import { ToastService} from './toast-service.service';
 import { GameLogService } from './game-log.service';
 import { Substitution } from './substitution';
 import { Shot } from './shot';
@@ -93,14 +93,14 @@ export class GameService {
           let shot = lastEvent as Shot; 
           if(shot.make === undefined)
           {
-            this.toast.pop(TOAST_TYPE.WARNING, "Invalid Selection", "Select if the shot was made before selecting another player");
+            this.toast.pop("warning", "Invalid Selection", "Select if the shot was made before selecting another player");
             return;
           }
           if(shot.make)
           {
             if(!this.game.ball && this.onSameTeam(player, shot.player))
             {
-              this.toast.pop(TOAST_TYPE.WARNING, "Invalid Selection", "The ball must be inbounded by the other team");
+              this.toast.pop("warning", "Invalid Selection", "The ball must be inbounded by the other team");
               return;
             }
 
@@ -215,12 +215,12 @@ export class GameService {
       let active1 = this.isActivePlayer(player1);
       if(active1 && !player2)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', `${player1.getName()} is already active`);
+        this.toast.pop("warning", 'Invalid Selection', `${player1.getName()} is already active`);
         return false;
       }
       if(player1 == player2)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', `Select another player to sub for ${player1.getName()}`);
+        this.toast.pop("warning", 'Invalid Selection', `Select another player to sub for ${player1.getName()}`);
         return false;
       }
       if(player2)
@@ -230,15 +230,15 @@ export class GameService {
        //make sure they are on the same team
         if(team1 != team2)
         {
-          this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Please selecte players from the same team");
+          this.toast.pop("warning", 'Invalid Selection', "Please selecte players from the same team");
           return false;
         }
         if(active1 == active2)
         {
           if(active1)
-            this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Both players are active");
+            this.toast.pop("warning", 'Invalid Selection', "Both players are active");
           if(!active1)
-            this.toast.pop(TOAST_TYPE.WARNING, 'Invalid Selection', "Both players are on the bench");
+            this.toast.pop("warning", 'Invalid Selection', "Both players are on the bench");
           return false;
         }
         
@@ -265,13 +265,13 @@ export class GameService {
      let active = this.getTeamLineup(player);
       if(!active)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to bench', "Player cannot be found on team roster");
+        this.toast.pop("warning", 'Unable to bench', "Player cannot be found on team roster");
         return false;
       }
       let idx = active.indexOf(player);
       if(idx === -1)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to bench', "Player is not active");
+        this.toast.pop("warning", 'Unable to bench', "Player is not active");
         return false;
       }
       active.splice(idx, 1);
@@ -281,17 +281,17 @@ export class GameService {
       let active = this.getTeamLineup(player);
       if(!active)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "Player cannot be found on team roster");
+        this.toast.pop("warning", 'Unable to active', "Player cannot be found on team roster");
         return false;
       }
       if(active.indexOf(player) !== -1)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "Player is already active");
+        this.toast.pop("warning", 'Unable to active', "Player is already active");
         return false;
       }
       if(active.length >= 5)
       {
-        this.toast.pop(TOAST_TYPE.WARNING, 'Unable to active', "5 Players are already active");
+        this.toast.pop("warning", 'Unable to active', "5 Players are already active");
         return false;
       }
       active.push(player);

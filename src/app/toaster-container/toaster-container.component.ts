@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastService, TOAST_TYPE, ToastType } from '../toast-service.service';
+import { ToastService } from '../toast-service.service';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { ToastService, TOAST_TYPE, ToastType } from '../toast-service.service';
 export class ToasterContainerComponent implements OnInit {
 
   constructor(public toastService: ToastService) {}
-  type:Record<string, ToastType> = TOAST_TYPE;
+  
   ngOnInit(): void {
     
     

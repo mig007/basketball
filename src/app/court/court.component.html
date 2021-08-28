@@ -1,84 +1,64 @@
 <div #divCourt id="divCourt">
-<svg  [attr.viewBox]="'0 0 ' + courtWidth + ' ' + courtHeight" xmlns="http://www.w3.org/2000/svg" >
-    <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="court"/>
-    <image x="0" y="0" width="100%" xlink:href="assets/floor.jpeg"></image>
+  <svg  [attr.viewBox]="'0 0 ' + courtWidth + ' ' + courtHeight" xmlns="http://www.w3.org/2000/svg" >
+      <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="court"/>
+      <image x="0" y="0" width="100%" xlink:href="assets/floor.jpeg"></image>
 
-    <!--Left 3 pt-->
-    <rect x="0" y="5.25" width="5.26" height="39.5" class="three-paint"  />
-    <path  d="M5.25,5.25a19.75,19.75,0,0,1,0,39.5" class="three"/>
-    
-    <line x1="0" y1="5.25" x2="5.26" y2="5.25" class="lines" />
-    <line x1="0" y1="44.75" x2="5.26" y2="44.75" class="lines"/>
-    
-    
-    <!-- Left Paint -->
-    <circle cx="18.8333" cy="25" r="6" class="key-arc"></circle>
-    <rect width="18.8333" height="12" x="0" y="19" class="key"/>
-    <circle cx="18.8333" cy="25" r="6" class="dash-arc"></circle>
-    <!--Basket -->
-    <line x1="4" y1="22" x2="4" y2="28" class="lines" />
-    <rect class="hoop-base" x="4" y="24.75" width=".5" height=".5" ></rect>
-    <circle [attr.cx]="leftBasket.x" [attr.cy]="leftBasket.y" r=".75" class="lines"></circle>
-    
-    
+      <!--Left 3 pt-->
+      <rect x="0" y="5.25" width="5.26" height="39.5" class="three-paint"  />
+      <path  d="M5.25,5.25a19.75,19.75,0,0,1,0,39.5" class="three"/>
+      
+      <line x1="0" y1="5.25" x2="5.26" y2="5.25" class="lines" />
+      <line x1="0" y1="44.75" x2="5.26" y2="44.75" class="lines"/>
+      
+      
+      <!-- Left Paint -->
+      <circle cx="18.8333" cy="25" r="6" class="key-arc"></circle>
+      <rect width="18.8333" height="12" x="0" y="19" class="key"/>
+      <circle cx="18.8333" cy="25" r="6" class="dash-arc"></circle>
+      <!--Basket -->
+      <line x1="4" y1="22" x2="4" y2="28" class="lines" />
+      <rect class="hoop-base" x="4" y="24.75" width=".5" height=".5" ></rect>
+      <circle [attr.cx]="leftBasket.x" [attr.cy]="leftBasket.y" r=".75" class="lines"></circle>
+      
+      
 
-    <!--half court-->
-    <line x1="42" y1="0" x2="42" y2="50" class="lines" />
-    <circle cx="42" cy="25" r="6" class="key-arc"></circle>
-    <circle cx="42" cy="25" r="3" class="key-arc"></circle>
-    
+      <!--half court-->
+      <line x1="42" y1="0" x2="42" y2="50" class="lines" />
+      <circle cx="42" cy="25" r="6" class="key-arc"></circle>
+      <circle cx="42" cy="25" r="3" class="key-arc"></circle>
+      
 
- <!--Right 3 pt-->
- <path  d="M78.75,44.75a19.75,19.75,0,0,1,0-39.5"  class="three"/>
- <rect x="78.74" y="5.25" width="5.26" height="39.5" class="three-paint"  />  
- <line x1="78.74" y1="5.25" x2="84" y2="5.25" class="lines" />
- 
- <line x1="78.74" y1="44.75" x2="84" y2="44.75" class="lines"/>
+  <!--Right 3 pt-->
+  <path  d="M78.75,44.75a19.75,19.75,0,0,1,0-39.5"  class="three"/>
+  <rect x="78.74" y="5.25" width="5.26" height="39.5" class="three-paint"  />  
+  <line x1="78.74" y1="5.25" x2="84" y2="5.25" class="lines" />
+  
+  <line x1="78.74" y1="44.75" x2="84" y2="44.75" class="lines"/>
 
-<!-- Right Paint -->
-    <circle cx="65.1777" cy="25" r="6" class="key-arc"></circle>
-    
-    <rect width="18.8333" height="12" x="65.1777" y="19" class="key" />
-    <circle cx="65.1777" cy="25" r="6" class="dash-arc"></circle>
-    <!--Basket -->
-    <line x1="80" y1="22" x2="80" y2="28" class="lines" />
-    <rect class="hoop-base" x="79.5" y="24.75" width=".5" height=".5" ></rect>
-    <circle [attr.cx]="rightBasket.x" [attr.cy]="rightBasket.y" r=".75" class="lines"></circle>
+  <!-- Right Paint -->
+      <circle cx="65.1777" cy="25" r="6" class="key-arc"></circle>
+      
+      <rect width="18.8333" height="12" x="65.1777" y="19" class="key" />
+      <circle cx="65.1777" cy="25" r="6" class="dash-arc"></circle>
+      <!--Basket -->
+      <line x1="80" y1="22" x2="80" y2="28" class="lines" />
+      <rect class="hoop-base" x="79.5" y="24.75" width=".5" height=".5" ></rect>
+      <circle [attr.cx]="rightBasket.x" [attr.cy]="rightBasket.y" r=".75" class="lines"></circle>
 
-    <rect width="83.82223" height="49.82223" x=".088885" y=".088885" class="lines" />
+      <rect width="83.82223" height="49.82223" x=".088885" y=".088885" class="lines" />
 
-    <g *ngFor="let shot of shots"> 
-    <!--Shot Attempt-->
-    <circle *ngIf="shot.make == null" [attr.cx]="shot.x" [attr.cy]="shot.y" r=".5" style="fill: black;" ></circle>
-    <!--Missed Shot-->
-    <line *ngIf="shot.make == false" [attr.x1]="shot.x-.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x+.5" [attr.y2]="shot.y+.5" class="miss" />
-    <line *ngIf="shot.make == false" [attr.x1]="shot.x+.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x-.5" [attr.y2]="shot.y+.5" class="miss" />
-    <!--Made Shot-->
-    <path *ngIf="shot.make == true" class="make" [attr.d]="'M' + (shot.x-.5) + ',' + shot.y + ' ' + shot.x + ',' + (shot.y+.5) + ' ' + (shot.x+.5) + ',' + (shot.y-.5)"></path>
-    </g>
-    
-    <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="top" (click)="onClick($event)" />
+      <g *ngFor="let shot of shots"> 
+      <!--Shot Attempt-->
+      <circle *ngIf="shot.make == null" [attr.cx]="shot.x" [attr.cy]="shot.y" r=".5" style="fill: black;" ></circle>
+      <!--Missed Shot-->
+      <line *ngIf="shot.make == false" [attr.x1]="shot.x-.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x+.5" [attr.y2]="shot.y+.5" class="miss" />
+      <line *ngIf="shot.make == false" [attr.x1]="shot.x+.5" [attr.y1]="shot.y-.5"  [attr.x2]="shot.x-.5" [attr.y2]="shot.y+.5" class="miss" />
+      <!--Made Shot-->
+      <path *ngIf="shot.make == true" class="make" [attr.d]="'M' + (shot.x-.5) + ',' + shot.y + ' ' + shot.x + ',' + (shot.y+.5) + ' ' + (shot.x+.5) + ',' + (shot.y-.5)"></path>
+      </g>
+      
+      <rect [attr.width]="courtWidth" [attr.height]="courtHeight" x="0" y="0" class="top" (click)="onClick($event)" />
   </svg>
+  <app-finalize-shot [shot]="shot" [left]="confirm.x" [top]="confirm.y" *ngIf="shot && shot.make == undefined"></app-finalize-shot>
 </div>
-  <!-- 
-<div class="mam">
-    <div class="float-end">
-        <div class="form-check form-switch">
-            <input class="form-check-input"  [(ngModel)]="leftPoessession" type="checkbox" >
-            <label class="form-check-label">Left Side Ball</label>
-        </div>
-    </div>
-  <div *ngIf="fga">
-        <div>
-           
-            <div class="btn btn-warning mlm"  (click)="cancelShot()">Cancel</div>
-        </div>
-        <div>Distance: {{fga.distance | number:'1.0-0'}}'</div>
-        <div>Points: {{fga.three ? '3' : '2' }}</div>
-        <div class="form-check form-switch">
-            <input class="form-check-input"  [(ngModel)]="fga.three" type="checkbox">
-            <label class="form-check-label">Three</label>
-        </div>
-    
-    </div> 
-</div>-->
+

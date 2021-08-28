@@ -17,6 +17,7 @@ import { ToasterContainerComponent } from './toaster-container/toaster-container
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SortPipe } from './sort.pipe';
 import { PlayerActionComponent } from './player-action/player-action.component';
+import { FinalizeShotComponent } from './finalize-shot/finalize-shot.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PlayerActionComponent } from './player-action/player-action.component';
     ActivePlayersComponent,
     ToasterContainerComponent,
     SortPipe,
-    PlayerActionComponent
+    PlayerActionComponent,
+    FinalizeShotComponent
   ],
   imports: [
     AlertModule.forRoot(),

@@ -1,5 +1,7 @@
+<div class="mam">
 <div class="row">
     <div class="col-md-9">
+        <div><app-game-clock [clock]="gameService.clock"></app-game-clock></div>
         <app-court></app-court>
         <div class="row">
             <div class="col-md-6 text-center">
@@ -16,8 +18,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="gameService.game.ball" class="mam">
-                {{gameService.game.ball.getName()}} has the ball
+        <div class="mam">
+            {{getLastLog()}}
         </div>
             
         <div class="row">
@@ -33,10 +35,11 @@
         <button class="btn btn-primary" (click)="gameService.switchSides()">Swap Sides</button>
     </div>
     <div class="col-md-3">
-        <div><app-game-clock [clock]="gameService.clock"></app-game-clock></div>
+        
         <div class="mtm "><app-player-action [player]="gameService.selected" *ngIf="gameService.selected"></app-player-action></div>
         <div  class="mtm game-log"><app-game-log></app-game-log></div>
         <div class="mtm shot-chart"><app-shot-history></app-shot-history></div>
         
     </div>
+</div>
 </div>

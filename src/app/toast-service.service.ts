@@ -5,7 +5,7 @@ import { Toast } from './toast';
 export class ToastService {
   toasts: Toast[] = [];
 
-  pop(type:ToastType, title:string, message:string) {
+  pop(type:string, title:string, message:string) {
     this.toasts.push(new Toast(type, title, message));
   }
 
@@ -14,13 +14,3 @@ export class ToastService {
   }
 }
 
-export interface ToastType{
-  name:string;
-  class:string;
-}
-export const TOAST_TYPE:Record<string, ToastType> = {
-  DANGER:{name: "danger", class: "toast-danger"},
-  WARNING:{name: "warning", class: "toast-warning"},
-  SUCCESS:{name: "success", class: "toast-success"}
-
-};

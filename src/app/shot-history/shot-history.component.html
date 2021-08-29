@@ -12,12 +12,12 @@
             <td>{{shot.distance | number : '1.0-0'}}'</td>
             <td *ngIf="shot.make !== undefined">
                 <div class="form-check form-switch">
-                    <input class="form-check-input"  [(ngModel)]="shot.make" type="checkbox">
+                    <input class="form-check-input"  [(ngModel)]="shot.make"  (ngModelChange)="onChange()" type="checkbox">
                 </div>    
             </td>
             <td *ngIf="shot.make === undefined">-</td>
             <td>
-                <select class="form-control"  [(ngModel)]="shot.type">
+                <select class="form-control"  [(ngModel)]="shot.type" (ngModelChange)="onChange()">
                     <option *ngFor="let type of shotTypes" [ngValue]="type">{{type.short}}</option>
                 </select>
             </td>

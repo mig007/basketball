@@ -18,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SortPipe } from './sort.pipe';
 import { PlayerActionComponent } from './player-action/player-action.component';
 import { FinalizeShotComponent } from './finalize-shot/finalize-shot.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FinalizeShotComponent } from './finalize-shot/finalize-shot.component';
     ToasterContainerComponent,
     SortPipe,
     PlayerActionComponent,
-    FinalizeShotComponent
+    FinalizeShotComponent,
+    ScoreboardComponent
   ],
   imports: [
     AlertModule.forRoot(),

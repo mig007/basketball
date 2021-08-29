@@ -22,9 +22,8 @@ export class FinalizeShotComponent implements OnInit {
   }
   finalizeShot(make:boolean)
   {
-    this.shot.make = make;
-    if(make)
-      this.gameService.game.ball = undefined;
+    this.shotService.finalizeShot(this.shot, make);
+    
   }
 
 }

@@ -42,7 +42,12 @@ export class GameService {
 
   //events
   pass(from:Player, to:Player){
-    this.log.addNote(this.clock, `${from.getName()} passes to ${to.getName()}`);
+    if(from == to)
+      return;
+    if(this.onSameTeam(from, to))
+      this.log.addNote(this.clock, `${from.getName()} passes to ${to.getName()}`);
+    else
+      this.steal(from, to);
   }
   inbound(from:Player, to:Player){
     if(this.onSameTeam(from, to))
@@ -205,6 +210,9 @@ export class GameService {
     });
 
     return retval;
+   }
+   isHomeTeam(player:Player):boolean{
+    return this.getPlayerTeam(player) == this.game.home;
    }
 
    subPlayer(player1:Player, player2?:Player):boolean

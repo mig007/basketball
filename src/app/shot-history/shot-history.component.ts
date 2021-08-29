@@ -22,6 +22,11 @@ export class ShotHistoryComponent implements OnInit {
     }
 
   }
+
+
+  onChange(){
+    this.shotService.refreshScore();
+  }
  
   
 }

@@ -58,12 +58,12 @@ export class CourtComponent implements OnInit {
   onClick(event?: MouseEvent): void{
     if(!this.game.clock.isRuning)
     {
-      this.toast.pop("warning", "Clock Not Running", "The clock must be running to take a shot");
+      this.toast.pop("warning", "Clock Not Running", "Start the clock by pressing the start button to take a shoot");
       return;
     }
     if(!this.game.game.ball)
     {
-      this.toast.pop("warning", "No Player Selected", "Please select an active player before taking a shot");
+      this.toast.pop("warning", "No Player Selected", "Select an active player below before taking a shot");
       return;
     }
     if(event)
@@ -71,7 +71,7 @@ export class CourtComponent implements OnInit {
       let click:Coord = new  Coord(event.offsetX * this.scale, event.offsetY * this.scale);
       
       if(click.x > this.courtWidth / 2)
-        this.confirm.x = event.x - 430;
+        this.confirm.x = event.x - 180;
       else
         this.confirm.x = event.x + 30;
       this.confirm.y = event.y - 60;
